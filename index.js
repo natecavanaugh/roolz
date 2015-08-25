@@ -139,16 +139,18 @@ re.prototype = _.create(
 
 			var testItem = context.item;
 
-			if (rule.testFullItem) {
-				testItem = context.fullItem;
+			var testProp = rule.testProp;
+
+			if (testProp && context.hasOwnProperty(testProp)) {
+				testItem = context[testProp];
 			}
 
 			return test.call(this, testItem, regex, rule, context);
 		},
 
 		_callReplacer: function(result, rule, context) {
-			var replacer = rule.replacer;
 			var fullItem = context.fullItem;
+			var replacer = rule.replacer;
 
 			if (_.isString(replacer)) {
 				fullItem = fullItem.replace(rule.regex, replacer);

@@ -312,12 +312,12 @@ describe(
 		);
 
 		it(
-			'should be able to test a rule with the full item',
+			'should be able to test a rule with a custom property',
 			function() {
 				_.assign(
 					sharedRules.ruleTest.logging,
 					{
-						testFullItem: true
+						testProp: 'fullItem'
 					}
 				);
 
@@ -333,6 +333,31 @@ describe(
 				);
 
 				assert.isTrue(item);
+			}
+		);
+
+		it(
+			'should ignore invalid testProp',
+			function() {
+				_.assign(
+					sharedRules.ruleTest.logging,
+					{
+						testProp: 'someProp'
+					}
+				);
+
+				var ruleInstance = new roolz(sharedRules);
+
+				var item = ruleInstance.testLine(
+					sharedRules.ruleTest.logging,
+					{
+						file: 'foo.js',
+						fullItem: 'test foo test',
+						item: ''
+					}
+				);
+
+				assert.isFalse(item);
 			}
 		);
 
