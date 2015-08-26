@@ -54,13 +54,23 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
 						content: 'test foo test'
 					}
 				);
 
 				assert.isTrue(logger.called);
 				assert.equal(content, 'test foo test');
+
+				content = ruleInstance.iterateRules(
+					'ruleTest',
+					{
+						file: 'foo.js',
+						rawContent: 'test rawContent test',
+						content: 'test foo test'
+					}
+				);
+
+				assert.equal(content, 'test rawContent test');
 			}
 		);
 
@@ -79,7 +89,7 @@ describe(
 					rulesObject.ruleTest,
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -106,7 +116,7 @@ describe(
 					{
 						file: 'foo.js',
 						formatItem: formatItem,
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -133,7 +143,7 @@ describe(
 					{
 						file: 'foo.js',
 						formatItem: false,
-						fullItem: ' test foo test ',
+						rawContent: ' test foo test ',
 						content: ' test foo test '
 					}
 				);
@@ -154,7 +164,7 @@ describe(
 					'nonExistantRules',
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: 'test foo test',
 						logger: logger
 					}
@@ -188,7 +198,7 @@ describe(
 					'ignoredRuleTest',
 					{
 						file: 'foo.js',
-						fullItem: contentString,
+						rawContent: contentString,
 						content: contentString,
 						logger: logger
 					}
@@ -241,7 +251,7 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -273,7 +283,7 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -301,7 +311,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -317,7 +327,7 @@ describe(
 				_.assign(
 					sharedRules.ruleTest.logging,
 					{
-						testProp: 'fullItem'
+						testProp: 'rawContent'
 					}
 				);
 
@@ -327,7 +337,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: ''
 					}
 				);
@@ -352,7 +362,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'test foo test',
+						rawContent: 'test foo test',
 						content: ''
 					}
 				);
@@ -424,7 +434,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
@@ -441,7 +451,7 @@ describe(
 					{
 						regex: /foo(.*)/,
 						replacer: function(result, rule, context) {
-							return context.fullItem.replace(rule.regex, '$1tender');
+							return context.rawContent.replace(rule.regex, '$1tender');
 						}
 					}
 				);
@@ -453,7 +463,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
@@ -470,7 +480,7 @@ describe(
 					{
 						regex: /foo(.*)/,
 						replacer: function(result, rule, context) {
-							return context.fullItem.replace(rule.regex, '$1tender');
+							return context.rawContent.replace(rule.regex, '$1tender');
 						},
 						valid: function(rule, context) {
 							return false;
@@ -485,7 +495,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
@@ -497,7 +507,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
@@ -516,7 +526,7 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
@@ -542,7 +552,7 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
@@ -559,7 +569,7 @@ describe(
 					{
 						regex: /foo(.*)/,
 						replacer: function(result, rule, context) {
-							return context.fullItem.replace(rule.regex, '$1tender');
+							return context.rawContent.replace(rule.regex, '$1tender');
 						},
 						valid: function(rule, context) {
 							return false;
@@ -575,7 +585,7 @@ describe(
 					ruleSet,
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar',
 						customIgnore: /^foo/
 					}
@@ -591,7 +601,7 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						fullItem: 'foobar',
+						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);

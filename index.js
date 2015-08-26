@@ -52,10 +52,10 @@ re.prototype = _.create(
 			if (_.isObject(rules)) {
 				var ignore = rules.IGNORE;
 				var customIgnore = context.customIgnore;
-				var fullItem = context.fullItem;
+				var rawContent = context.rawContent;
 
-				validRuleSet = (!ignore || (ignore && !ignore.test(fullItem))) &&
-						(!customIgnore || (customIgnore && !customIgnore.test(fullItem)));
+				validRuleSet = (!ignore || (ignore && !ignore.test(rawContent))) &&
+						(!customIgnore || (customIgnore && !customIgnore.test(rawContent)));
 			}
 
 			return validRuleSet;
@@ -68,8 +68,9 @@ re.prototype = _.create(
 				rules = instance.getValue(instance.rules, rules);
 			}
 
-			var fullItem = context.fullItem;
-			var lineNum = context.lineNum;
+			var contentProp = this._getContentProp(context);
+
+			var rawContent = context[contentProp];
 
 			if (instance.isValidRuleSet(rules, context)) {
 				_.forEach(
@@ -91,14 +92,14 @@ re.prototype = _.create(
 									);
 								}
 
-								fullItem = instance.replaceItem(result, rule, context);
+								rawContent = instance.replaceItem(result, rule, context);
 							}
 						}
 					}
 				);
 			}
 
-			return fullItem;
+			return rawContent;
 		},
 
 		match: function(content, re) {
@@ -112,17 +113,19 @@ re.prototype = _.create(
 		replaceItem: function(result, rule, context) {
 			var replacer = rule.replacer;
 
-			var fullItem = context.fullItem;
+			var contentProp = this._getContentProp(context);
+
+			var rawContent = context[contentProp];
 
 			if (replacer) {
-				fullItem = this._callReplacer(result, rule, context);
+				rawContent = this._callReplacer(result, rule, context);
 
-				context.fullItem = fullItem;
+				context[contentProp] = rawContent;
 
-				fullItem = this._callFormatItem(context);
+				rawContent = this._callFormatItem(context);
 			}
 
-			return fullItem;
+			return rawContent;
 		},
 
 		test: function(content, regex) {
@@ -156,28 +159,40 @@ re.prototype = _.create(
 		},
 
 		_callReplacer: function(result, rule, context) {
-			var fullItem = context.fullItem;
+			var contentProp = this._getContentProp(context);
+
+			var rawContent = context[contentProp];
 			var replacer = rule.replacer;
 
 			if (_.isString(replacer)) {
-				fullItem = fullItem.replace(rule.regex, replacer);
+				rawContent = rawContent.replace(rule.regex, replacer);
 			}
 			else if (_.isFunction(replacer)) {
-				fullItem = replacer.call(this, result, rule, context);
+				rawContent = replacer.call(this, result, rule, context);
 			}
 
-			return fullItem;
+			return rawContent;
 		},
 
 		_callFormatItem: function(context) {
-			var fullItem = context.fullItem;
+			var contentProp = this._getContentProp(context);
+
+			var rawContent = context[contentProp];
 			var formatItem = context.formatItem;
 
 			if (formatItem) {
-				fullItem = formatItem.call(this, context);
+				rawContent = formatItem.call(this, context);
 			}
 
-			return fullItem;
+			return rawContent;
+		},
+
+		// TODO: Need to analyze this in regards to the testProp feature.
+		// Specifying the testProp will test some other property, but the
+		// content that's returned will either be from content or rawContent.
+
+		_getContentProp: function(context) {
+			return _.isUndefined(context.rawContent) ? 'content' : 'rawContent';
 		}
 	}
 );
