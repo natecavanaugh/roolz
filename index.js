@@ -76,7 +76,7 @@ re.prototype = _.create(
 					rules,
 					function(rule, ruleName) {
 						if (instance.isValidRule(ruleName, rule, context)) {
-							var result = instance._testLine(rule, context, rules);
+							var result = instance.testContent(rule, context, rules);
 
 							if (result) {
 								var message = instance.getMessage(result, rule, context);
@@ -129,32 +129,7 @@ re.prototype = _.create(
 			return regex.test(content);
 		},
 
-		_callReplacer: function(result, rule, context) {
-			var fullItem = context.fullItem;
-			var replacer = rule.replacer;
-
-			if (_.isString(replacer)) {
-				fullItem = fullItem.replace(rule.regex, replacer);
-			}
-			else if (_.isFunction(replacer)) {
-				fullItem = replacer.call(this, result, rule, context);
-			}
-
-			return fullItem;
-		},
-
-		_callFormatItem: function(context) {
-			var fullItem = context.fullItem;
-			var formatItem = context.formatItem;
-
-			if (formatItem) {
-				fullItem = formatItem.call(this, context);
-			}
-
-			return fullItem;
-		},
-
-		_testLine: function(rule, context, rules) {
+		testContent: function(rule, context, rules) {
 			var regex = rule.regex;
 			var test = rule.test || this.test;
 
@@ -178,6 +153,31 @@ re.prototype = _.create(
 			var testItem = context[testProp];
 
 			return test.call(this, testItem, regex, rule, context);
+		},
+
+		_callReplacer: function(result, rule, context) {
+			var fullItem = context.fullItem;
+			var replacer = rule.replacer;
+
+			if (_.isString(replacer)) {
+				fullItem = fullItem.replace(rule.regex, replacer);
+			}
+			else if (_.isFunction(replacer)) {
+				fullItem = replacer.call(this, result, rule, context);
+			}
+
+			return fullItem;
+		},
+
+		_callFormatItem: function(context) {
+			var fullItem = context.fullItem;
+			var formatItem = context.formatItem;
+
+			if (formatItem) {
+				fullItem = formatItem.call(this, context);
+			}
+
+			return fullItem;
 		}
 	}
 );

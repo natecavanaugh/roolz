@@ -297,7 +297,7 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var content = ruleInstance._testLine(
+				var content = ruleInstance.testContent(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
@@ -323,7 +323,7 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var content = ruleInstance._testLine(
+				var content = ruleInstance.testContent(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
@@ -348,7 +348,7 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var content = ruleInstance._testLine(
+				var content = ruleInstance.testContent(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
@@ -375,7 +375,7 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var content = ruleInstance._testLine(
+				var content = ruleInstance.testContent(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
@@ -393,7 +393,7 @@ describe(
 
 				ruleInstance.testProp = 'aNewProp';
 
-				var content = ruleInstance._testLine(
+				var content = ruleInstance.testContent(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
