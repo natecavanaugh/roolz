@@ -76,7 +76,7 @@ re.prototype = _.create(
 					rules,
 					function(rule, ruleName) {
 						if (instance.isValidRule(ruleName, rule, context)) {
-							var result = instance.testLine(rule, context);
+							var result = instance._testLine(rule, context, rules);
 
 							if (result) {
 								var message = instance.getMessage(result, rule, context);
@@ -129,25 +129,6 @@ re.prototype = _.create(
 			return regex.test(item);
 		},
 
-		testLine: function(rule, context) {
-			var regex = rule.regex;
-			var test = rule.test || this.test;
-
-			if (test === 'match') {
-				test = this.match;
-			}
-
-			var testItem = context.item;
-
-			var testProp = rule.testProp;
-
-			if (testProp && context.hasOwnProperty(testProp)) {
-				testItem = context[testProp];
-			}
-
-			return test.call(this, testItem, regex, rule, context);
-		},
-
 		_callReplacer: function(result, rule, context) {
 			var fullItem = context.fullItem;
 			var replacer = rule.replacer;
@@ -171,6 +152,32 @@ re.prototype = _.create(
 			}
 
 			return fullItem;
+		},
+
+		_testLine: function(rule, context, rules) {
+			var regex = rule.regex;
+			var test = rule.test || this.test;
+
+			if (test === 'match') {
+				test = this.match;
+			}
+
+			var testProp = _.get(
+				_.find(
+					[rule, rules, this],
+					function(item, index) {
+						var testProp = item && item.testProp;
+
+						return testProp && context.hasOwnProperty(testProp);
+					}
+				),
+				'testProp',
+				'item'
+			);
+
+			var testItem = context[testProp];
+
+			return test.call(this, testItem, regex, rule, context);
 		}
 	}
 );

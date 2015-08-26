@@ -297,7 +297,7 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance.testLine(
+				var item = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
@@ -323,7 +323,7 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance.testLine(
+				var item = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
@@ -348,7 +348,7 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance.testLine(
+				var item = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
@@ -358,6 +358,51 @@ describe(
 				);
 
 				assert.isFalse(item);
+			}
+		);
+
+		it(
+			'should fallback to valid testProp when invalid testProp passed',
+			function() {
+				_.assign(
+					sharedRules.ruleTest.logging,
+					{
+						testProp: 'someProp'
+					}
+				);
+
+				sharedRules.ruleTest.testProp = 'someOtherProp';
+
+				var ruleInstance = new roolz(sharedRules);
+
+				var item = ruleInstance._testLine(
+					sharedRules.ruleTest.logging,
+					{
+						file: 'foo.js',
+						someOtherProp: 'test foo test',
+						item: ''
+					},
+					sharedRules.ruleTest
+				);
+
+				assert.isTrue(item);
+
+				delete sharedRules.ruleTest.testProp;
+
+				ruleInstance = new roolz(sharedRules);
+
+				ruleInstance.testProp = 'aNewProp';
+
+				var item = ruleInstance._testLine(
+					sharedRules.ruleTest.logging,
+					{
+						file: 'foo.js',
+						aNewProp: 'test foo test',
+						item: ''
+					}
+				);
+
+				assert.isTrue(item);
 			}
 		);
 
