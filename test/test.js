@@ -50,17 +50,17 @@ describe(
 
 				ruleInstance.on('message', logger);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ruleTest',
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: 'test foo test'
+						content: 'test foo test'
 					}
 				);
 
 				assert.isTrue(logger.called);
-				assert.equal(item, 'test foo test');
+				assert.equal(content, 'test foo test');
 			}
 		);
 
@@ -75,17 +75,17 @@ describe(
 
 				ruleInstance.on('message', logger);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					rulesObject.ruleTest,
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: 'test foo test'
+						content: 'test foo test'
 					}
 				);
 
 				assert.isTrue(logger.called);
-				assert.equal(item, 'test foo test');
+				assert.equal(content, 'test foo test');
 			}
 		);
 
@@ -101,19 +101,19 @@ describe(
 
 				ruleInstance.on('message', logger);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ruleTest',
 					{
 						file: 'foo.js',
 						formatItem: formatItem,
 						fullItem: 'test foo test',
-						item: 'test foo test'
+						content: 'test foo test'
 					}
 				);
 
 				assert.isTrue(logger.calledOnce);
 				assert.isTrue(formatItem.calledOnce);
-				assert.equal(item, 'foo');
+				assert.equal(content, 'foo');
 			}
 		);
 
@@ -128,18 +128,18 @@ describe(
 
 				ruleInstance.on('message', logger);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ruleTest',
 					{
 						file: 'foo.js',
 						formatItem: false,
 						fullItem: ' test foo test ',
-						item: ' test foo test '
+						content: ' test foo test '
 					}
 				);
 
 				assert.isTrue(logger.calledOnce);
-				assert.equal(item, ' test foo test ');
+				assert.equal(content, ' test foo test ');
 			}
 		);
 
@@ -150,18 +150,18 @@ describe(
 
 				var logger = sandbox.spy();
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'nonExistantRules',
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: 'test foo test',
+						content: 'test foo test',
 						logger: logger
 					}
 				);
 
 				assert.isTrue(logger.notCalled);
-				assert.equal(item, 'test foo test');
+				assert.equal(content, 'test foo test');
 			}
 		);
 
@@ -182,20 +182,20 @@ describe(
 
 				var logger = sandbox.spy();
 
-				var itemString = '	test foo test';
+				var contentString = '	test foo test';
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ignoredRuleTest',
 					{
 						file: 'foo.js',
-						fullItem: itemString,
-						item: itemString,
+						fullItem: contentString,
+						content: contentString,
 						logger: logger
 					}
 				);
 
 				assert.isTrue(logger.notCalled);
-				assert.equal(item, itemString);
+				assert.equal(content, contentString);
 			}
 		);
 
@@ -237,12 +237,12 @@ describe(
 
 				ruleInstance.on('message', logger);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ruleTest',
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: 'test foo test'
+						content: 'test foo test'
 					}
 				);
 
@@ -269,12 +269,12 @@ describe(
 
 				ruleInstance.on('message', logger);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ruleTest',
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: 'test foo test'
+						content: 'test foo test'
 					}
 				);
 
@@ -297,17 +297,17 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance._testLine(
+				var content = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: 'test foo test'
+						content: 'test foo test'
 					}
 				);
 
-				assert.isTrue(Array.isArray(item));
-				assert.equal(item[0], 'foo');
+				assert.isTrue(Array.isArray(content));
+				assert.equal(content[0], 'foo');
 			}
 		);
 
@@ -323,16 +323,16 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance._testLine(
+				var content = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: ''
+						content: ''
 					}
 				);
 
-				assert.isTrue(item);
+				assert.isTrue(content);
 			}
 		);
 
@@ -348,16 +348,16 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance._testLine(
+				var content = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
 						fullItem: 'test foo test',
-						item: ''
+						content: ''
 					}
 				);
 
-				assert.isFalse(item);
+				assert.isFalse(content);
 			}
 		);
 
@@ -375,17 +375,17 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance._testLine(
+				var content = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
 						someOtherProp: 'test foo test',
-						item: ''
+						content: ''
 					},
 					sharedRules.ruleTest
 				);
 
-				assert.isTrue(item);
+				assert.isTrue(content);
 
 				delete sharedRules.ruleTest.testProp;
 
@@ -393,16 +393,16 @@ describe(
 
 				ruleInstance.testProp = 'aNewProp';
 
-				var item = ruleInstance._testLine(
+				var content = ruleInstance._testLine(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
 						aNewProp: 'test foo test',
-						item: ''
+						content: ''
 					}
 				);
 
-				assert.isTrue(item);
+				assert.isTrue(content);
 			}
 		);
 
@@ -419,17 +419,17 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance.replaceItem(
+				var content = ruleInstance.replaceItem(
 					true,
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar'
+						content: 'foobar'
 					}
 				);
 
-				assert.equal(item, 'bartender');
+				assert.equal(content, 'bartender');
 			}
 		);
 
@@ -448,17 +448,17 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance.replaceItem(
+				var content = ruleInstance.replaceItem(
 					true,
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar'
+						content: 'foobar'
 					}
 				);
 
-				assert.equal(item, 'bartender');
+				assert.equal(content, 'bartender');
 			}
 		);
 
@@ -486,7 +486,7 @@ describe(
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar'
+						content: 'foobar'
 					}
 				);
 
@@ -498,7 +498,7 @@ describe(
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar'
+						content: 'foobar'
 					}
 				);
 
@@ -517,7 +517,7 @@ describe(
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar'
+						content: 'foobar'
 					}
 				);
 
@@ -538,16 +538,16 @@ describe(
 
 				var ruleInstance = new roolz(sharedRules);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ruleTest',
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar'
+						content: 'foobar'
 					}
 				);
 
-				assert.equal(item, 'foobar');
+				assert.equal(content, 'foobar');
 			}
 		);
 
@@ -576,7 +576,7 @@ describe(
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar',
+						content: 'foobar',
 						customIgnore: /^foo/
 					}
 				);
@@ -587,17 +587,17 @@ describe(
 
 				ruleInstance.on('message', logger);
 
-				var item = ruleInstance.iterateRules(
+				var content = ruleInstance.iterateRules(
 					'ruleTest',
 					{
 						file: 'foo.js',
 						fullItem: 'foobar',
-						item: 'foobar'
+						content: 'foobar'
 					}
 				);
 
 				assert.isTrue(logger.notCalled);
-				assert.equal(item, 'foobar');
+				assert.equal(content, 'foobar');
 			}
 		);
 	}

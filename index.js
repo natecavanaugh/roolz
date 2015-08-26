@@ -101,12 +101,12 @@ re.prototype = _.create(
 			return fullItem;
 		},
 
-		match: function(item, re) {
-			return item.match(re);
+		match: function(content, re) {
+			return content.match(re);
 		},
 
 		message: function(message, result, rule, context) {
-			return sub(message, context.lineNum, context.item);
+			return sub(message, context.lineNum, context.content);
 		},
 
 		replaceItem: function(result, rule, context) {
@@ -125,8 +125,8 @@ re.prototype = _.create(
 			return fullItem;
 		},
 
-		test: function(item, regex) {
-			return regex.test(item);
+		test: function(content, regex) {
+			return regex.test(content);
 		},
 
 		_callReplacer: function(result, rule, context) {
@@ -172,7 +172,7 @@ re.prototype = _.create(
 					}
 				),
 				'testProp',
-				'item'
+				'content'
 			);
 
 			var testItem = context[testProp];
