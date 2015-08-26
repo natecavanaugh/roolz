@@ -89,7 +89,6 @@ describe(
 					rulesObject.ruleTest,
 					{
 						file: 'foo.js',
-						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -116,7 +115,6 @@ describe(
 					{
 						file: 'foo.js',
 						formatItem: formatItem,
-						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -143,7 +141,6 @@ describe(
 					{
 						file: 'foo.js',
 						formatItem: false,
-						rawContent: ' test foo test ',
 						content: ' test foo test '
 					}
 				);
@@ -164,7 +161,6 @@ describe(
 					'nonExistantRules',
 					{
 						file: 'foo.js',
-						rawContent: 'test foo test',
 						content: 'test foo test',
 						logger: logger
 					}
@@ -198,7 +194,6 @@ describe(
 					'ignoredRuleTest',
 					{
 						file: 'foo.js',
-						rawContent: contentString,
 						content: contentString,
 						logger: logger
 					}
@@ -251,7 +246,6 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -283,7 +277,6 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -311,7 +304,6 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						rawContent: 'test foo test',
 						content: 'test foo test'
 					}
 				);
@@ -434,7 +426,6 @@ describe(
 					sharedRules.ruleTest.logging,
 					{
 						file: 'foo.js',
-						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
@@ -552,7 +543,6 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						rawContent: 'foobar',
 						content: 'foobar'
 					}
 				);
