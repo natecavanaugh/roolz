@@ -121,8 +121,6 @@ re.prototype = _.create(
 				rawContent = this._callReplacer(result, rule, context);
 
 				context[contentProp] = rawContent;
-
-				rawContent = this._callFormatItem(context);
 			}
 
 			return rawContent;
@@ -169,19 +167,6 @@ re.prototype = _.create(
 			}
 			else if (_.isFunction(replacer)) {
 				rawContent = replacer.call(this, result, rule, context);
-			}
-
-			return rawContent;
-		},
-
-		_callFormatItem: function(context) {
-			var contentProp = this._getContentProp(context);
-
-			var rawContent = context[contentProp];
-			var formatItem = context.formatItem;
-
-			if (formatItem) {
-				rawContent = formatItem.call(this, context);
 			}
 
 			return rawContent;

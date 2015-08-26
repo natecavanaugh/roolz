@@ -155,7 +155,8 @@ The arguments it receives are `content` (the content to test), `regex` (the rule
 `testProp` A string. By default, the regex is tested against the `content` property of the context. However, if you wish to have it test any other property on the context object, without having to implement the `test` property on the rule, you can specify this property and it will be tested on that property if it exists in the context.
 **This property can also be set on a rule set, or on the instance itself**. If a property is specified on the rule that doesn't exist on the context, it will check the rule set for a `testProp`, and if one is not set (or doesn't exist on the context), it will lastly look on the instance.
 
-Any other properties, methods, objects, etc can be defined on the rule object, so you don't have to cram all of the logic only in the above functions.<br />
+Any other properties, methods, objects, etc can be defined on the rule object, so you don't have to cram all of the logic only in the above functions.
+
 It is recommended that for methods, to prefix the names with `_` and for properties to make the names as all uppercase (as object constants). This limits the possibility that in the future another name could be added that might conflict, but this is only a recommendation.
 
 ## License

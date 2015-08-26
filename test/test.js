@@ -99,33 +99,6 @@ describe(
 		);
 
 		it(
-			'should handle formatItem properly',
-			function() {
-				sharedRules.ruleTest.logging.replacer = true;
-
-				var ruleInstance = new roolz(sharedRules);
-
-				var formatItem = sandbox.stub().returns('foo');
-				var logger = sandbox.spy();
-
-				ruleInstance.on('message', logger);
-
-				var content = ruleInstance.iterateRules(
-					'ruleTest',
-					{
-						file: 'foo.js',
-						formatItem: formatItem,
-						content: 'test foo test'
-					}
-				);
-
-				assert.isTrue(logger.calledOnce);
-				assert.isTrue(formatItem.calledOnce);
-				assert.equal(content, 'foo');
-			}
-		);
-
-		it(
 			'should trim line by default',
 			function() {
 				sharedRules.ruleTest.logging.replacer = true;
@@ -140,7 +113,6 @@ describe(
 					'ruleTest',
 					{
 						file: 'foo.js',
-						formatItem: false,
 						content: ' test foo test '
 					}
 				);
