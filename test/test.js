@@ -75,6 +75,32 @@ describe(
 		);
 
 		it(
+			'should iterate rules with a string path',
+			function() {
+				var rulesObject = {
+					topRuleGroup: [sharedRules]
+				};
+
+				var ruleInstance = new roolz(rulesObject);
+
+				var logger = sandbox.spy();
+
+				ruleInstance.on('message', logger);
+
+				var content = ruleInstance.iterateRules(
+					'topRuleGroup[0].ruleTest',
+					{
+						file: 'foo.js',
+						content: 'test foo test'
+					}
+				);
+
+				assert.isTrue(logger.called);
+				assert.equal(content, 'test foo test');
+			}
+		);
+
+		it(
 			'should iterate rules from an object reference',
 			function() {
 				var rulesObject = sharedRules;

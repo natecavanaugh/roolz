@@ -1,5 +1,4 @@
 var _ = require('lodash');
-var getObject = require('getobject');
 
 var EventEmitter = require('drip').EnhancedEmitter;
 
@@ -20,7 +19,7 @@ re.prototype = _.create(
 	{
 		constructor: re,
 
-		getValue: getObject.get,
+		getValue: _.get,
 
 		getMessage: function(result, rule, context) {
 			var warning;
