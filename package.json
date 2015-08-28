@@ -1,7 +1,7 @@
 {
   "name": "roolz",
   "version": "1.0.1",
-  "description": "My kickass module",
+  "description": "Create rules and do stuff",
   "license": "MIT",
   "repository": "natecavanaugh/roolz",
   "author": {
